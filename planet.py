@@ -17,6 +17,7 @@ class Planet:
 		self.mass = mass
 		self.color = (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
 
+		self.tail_size = 15
 		self.tail = []
 
 
@@ -44,7 +45,7 @@ class Planet:
 		self.acc = self.acc + a
 		self.vel = self.vel + self.acc*DELTA_T
 		self.vel = self.vel.clamp(-100, 100)
-		
+
 		self.pos = self.pos  * 2 - self.prev_pos + self.acc * (DELTA_T**2)
 		self.prev_pos = self.pos
 
@@ -60,7 +61,7 @@ class Planet:
 
 		self.tail.append([int(self.pos.x), int(self.pos.y)])
 
-		while len(self.tail)>100:
+		while len(self.tail)>self.tail_size:
 			self.tail.reverse()
 			self.tail.pop()
 			self.tail.reverse()
