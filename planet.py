@@ -22,9 +22,9 @@ class Planet:
 
 
 		if self.mass == None:
-			self.mass = random.randint(1, 10)
+			self.mass = random.randint(100, 500)
 			
-		self.radius = self.mass*2
+		self.radius = self.mass//50
 
 
 	def set_velocity(self, x, y):
@@ -37,17 +37,18 @@ class Planet:
 		self.vel = Vector(randomize = True, random_range = [-50, 50])
 
 	def randomize_acceleration(self):
-		self.acc = Vector(randomize = True, random_range = [-100, 100])
+		self.acc = Vector(randomize = True, random_range = [-50, 50])
 
 	def update(self, F):
 		self.f = F
-		a = Vector(x = F.x/self.mass, y = F.y/self.mass)
-		self.acc = self.acc + a
-		self.vel = self.vel + self.acc*DELTA_T
-		self.vel = self.vel.clamp(-100, 100)
-
+		self.a = Vector(x = F.x/self.mass, y = F.y/self.mass)
+		# self.vel = self.vel + self.acc*DELTA_T
+		# self.vel = self.vel.clamp(-100, 100)
+		# print(a)
+		self.acc = self.a
+		temp = self.pos
 		self.pos = self.pos  * 2 - self.prev_pos + self.acc * (DELTA_T**2)
-		self.prev_pos = self.pos
+		self.prev_pos = temp
 
 		# if self.pos.x>WIDTH:
 		# 	self.pos.x = 0

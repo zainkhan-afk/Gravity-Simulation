@@ -4,14 +4,13 @@ import numpy as np
 
 class Physics:
 	def __init__(self):
-		# 6.6743 × 10-11 m3 kg-1 s-2
-		# self.G = 6.6743e-11
-		self.G = 0.66743
+		# Real Units 6.6743 × 10-11 m3 kg-1 s-2
+		self.G = 6.6743e1
 
 	def calculate_forces(self, p1, p2):
 		direction = p1.pos - p2.pos
 		R = direction.magnitude
-		if R<p1.radius + p2.radius:
+		if R<max(p1.radius,p2.radius):
 			return Vector(x = 0, y = 0)
 		mag = -self.G*p1.mass*p2.mass/R**2
 		F = direction.normalize()*mag

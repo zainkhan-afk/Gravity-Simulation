@@ -8,9 +8,12 @@ from physics import Physics
 all_planets = []
 
 
-p = Planet(x = WIDTH//2, y = HEIGHT//2, mass = 100000)
+p = Planet(x = WIDTH//2, y = HEIGHT//2, mass = 10000)
 p.radius = 30
 all_planets.append(p)
+# p = Planet(x = WIDTH//3, y = HEIGHT//2, mass = 100)
+# p.radius = 10
+# all_planets.append(p)
 for i in range(NUM_PLANETS):
 	p = Planet()
 	p.randomize_acceleration()
