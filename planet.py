@@ -22,9 +22,9 @@ class Planet:
 
 
 		if self.mass == None:
-			self.mass = random.randint(100, 500)
+			self.mass = random.randint(10, 100)
 			
-		self.radius = self.mass//50
+		self.radius = self.mass//10
 
 
 	def set_velocity(self, x, y):
@@ -42,14 +42,17 @@ class Planet:
 	def update(self, F):
 		self.f = F
 		self.a = Vector(x = F.x/self.mass, y = F.y/self.mass)
-		# self.vel = self.vel + self.acc*DELTA_T
-		# self.vel = self.vel.clamp(-100, 100)
-		# print(a)
-		self.acc = self.a
-		temp = self.pos
-		self.pos = self.pos  * 2 - self.prev_pos + self.acc * (DELTA_T**2)
-		self.prev_pos = temp
 
+		self.vel = self.vel + self.acc * DELTA_T
+		
+		temp = self.pos
+		# self.pos = self.pos + self.vel * DELTA_T 
+		
+		self.pos = self.pos  * 2 - self.prev_pos + self.acc * (DELTA_T**2) # Verlet integration method of position update.
+		self.prev_pos = temp
+		self.acc = self.a
+
+		# Uncomment for wrapping motion
 		# if self.pos.x>WIDTH:
 		# 	self.pos.x = 0
 		# if self.pos.x<0:

@@ -54,6 +54,11 @@ class Vector:
 	def normalize(self):
 		return Vector(x = self.x/self.magnitude, y = self.y/self.magnitude)
 
+	def rotate(self, angle, degrees = True):
+		if degrees:
+			angle = angle/180*np.pi
+		return Vector(magnitude = self.magnitude, angle = self.angle + angle)
+
 	def __str__(self):
 		return f"X: {self.x}, Y: {self.y}, Magnitude: {self.magnitude}, Angle: {self.angle}"
 
