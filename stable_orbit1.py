@@ -31,7 +31,7 @@ while True:
 
 	all_planets = physics_solver.solve_physics(all_planets)
 
-	renderer.draw_planets(all_planets)
+	renderer.draw(all_planets)
 	k = renderer.render()
 	if k == ord("q"):
 		break

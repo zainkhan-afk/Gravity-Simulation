@@ -11,40 +11,38 @@ class Draw:
 	def clear_canvas(self):
 		self.canvas = np.zeros((self.height, self.width, 3)).astype("uint8")
 
-	def get_planet_mask(self, planet, planet_mask):
-		x = int(planet.pos.x)
-		y = int(planet.pos.y)
+	def get_particle_mask(self, particle, particle_mask):
+		x = int(particle.pos.x)
+		y = int(particle.pos.y)
 
-		cv2.circle(planet_mask, (x, y), planet.radius, (255, 255, 255), -1)
+		cv2.circle(particle_mask, (x, y), particle.radius, (255, 255, 255), -1)
 
-		return planet_mask
+		return particle_mask
 
-	def get_planet_tail(self, planet, planet_tail_mask):
-		x = int(planet.pos.x)
-		y = int(planet.pos.y)
+	def get_particle_tail(self, particle, particle_tail_mask):
+		x = int(particle.pos.x)
+		y = int(particle.pos.y)
 
-		cv2.polylines(planet_tail_mask, [np.array(planet.tail)], False, 255, 1)
+		cv2.polylines(particle_tail_mask, [np.array(particle.tail)], False, 255, 1)
 
-		return planet_tail_mask
+		return particle_tail_mask
 
-	def draw_planets(self, planets):
-		for planet in planets:
-			x = int(planet.pos.x)
-			y = int(planet.pos.y)
+	def draw(self, particles):
+		for particle in particles:
+			x = int(particle.pos.x)
+			y = int(particle.pos.y)
 
-			cv2.circle(self.canvas, (x, y), planet.radius+2, planet.color, -1)
-			cv2.polylines(self.canvas, [np.array(planet.tail)], False, planet.color, 3)
+			cv2.circle(self.canvas, (x, y), particle.radius+2, particle.color, -1)
+			cv2.polylines(self.canvas, [np.array(particle.tail)], False, particle.color, 3)
 
 		self.canvas = cv2.GaussianBlur(self.canvas,(17,17),0)
 
-		for planet in planets:
-			x = int(planet.pos.x)
-			y = int(planet.pos.y)
+		for particle in particles:
+			x = int(particle.pos.x)
+			y = int(particle.pos.y)
 
-			cv2.circle(self.canvas, (x, y), planet.radius, planet.color, 1)
-			cv2.polylines(self.canvas, [np.array(planet.tail)], False, planet.color, 1)
-
-
+			cv2.circle(self.canvas, (x, y), particle.radius, particle.color, 1)
+			cv2.polylines(self.canvas, [np.array(particle.tail)], False, particle.color, 1)
 
 
 	def render(self):

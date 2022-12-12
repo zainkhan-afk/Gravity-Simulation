@@ -30,7 +30,7 @@ while True:
 	p1.pos.x = WIDTH//2
 	p1.pos.y = HEIGHT//2
 
-	renderer.draw_planets(all_planets)
+	renderer.draw(all_planets)
 	k = renderer.render()
 	if k == ord("q"):
 		break
