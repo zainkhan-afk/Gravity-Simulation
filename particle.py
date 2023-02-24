@@ -3,7 +3,7 @@ from vector import Vector
 import random
 from settings import *
 
-class Planet:
+class Particle:
 	def __init__(self, x = None, y = None, mass = None):
 		if x != None and y!= None:
 			self.pos = Vector(x = x, y = y)
@@ -46,22 +46,34 @@ class Planet:
 		self.vel = self.vel + self.acc * DELTA_T
 		
 		temp = self.pos
-		# self.pos = self.pos + self.vel * DELTA_T 
+		self.pos = self.pos + self.vel * DELTA_T 
 		
-		self.pos = self.pos  * 2 - self.prev_pos + self.acc * (DELTA_T**2) # Verlet integration method of position update.
+		# self.pos = self.pos  * 2 - self.prev_pos + self.acc * (DELTA_T**2) # Verlet integration method of position update.
 		self.prev_pos = temp
 		self.acc = self.a
 
-		# Uncomment for wrapping motion
-		# if self.pos.x>WIDTH:
-		# 	self.pos.x = 0
-		# if self.pos.x<0:
-		# 	self.pos.x = WIDTH
 
-		# if self.pos.y>HEIGHT:
-		# 	self.pos.y = 0
-		# if self.pos.y<0:
-		# 	self.pos.y = HEIGHT
+		if WALL_COLLISIONS == "REFLECTIVE":
+			if self.pos.x>WIDTH or self.pos.x<0:
+				print("CROSSED X")
+				self.acc.x *= -1
+				self.vel.x *= -1
+
+			if self.pos.y>HEIGHT or self.pos.y<0:
+				print("CROSSED Y")
+				self.acc.y *= -1
+				self.vel.y *= -1
+
+		elif WALL_COLLISIONS == "WRAPPING":
+			if self.pos.x>WIDTH:
+				self.pos.x = 0
+			if self.pos.x<0:
+				self.pos.x = WIDTH
+
+			if self.pos.y>HEIGHT:
+				self.pos.y = 0
+			if self.pos.y<0:
+				self.pos.y = HEIGHT
 
 		self.tail.append([int(self.pos.x), int(self.pos.y)])
 

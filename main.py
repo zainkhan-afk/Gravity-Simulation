@@ -1,4 +1,4 @@
-from planet import Planet
+from particle import Particle as Planet
 from draw import Draw
 from settings import *
 from physics import Physics
